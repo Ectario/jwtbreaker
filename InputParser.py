@@ -7,8 +7,7 @@ NAME
         jwtbreaker - Bruteforce JWT token with a password list
 
 SYNOPSIS
-        ./main.py <token> <payload> <password_list_path> [OPTIONS]...
-
+        ./main.py [OPTIONS...] <token> <payload> <password_list_path> 
 DESCRIPTION
         Try all passwords from the list passed in parameters.
 
