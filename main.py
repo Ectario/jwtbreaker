@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from threading import Lock
 import time, sys, InputParser
 from ThreadsEnvironment import *
 
