@@ -45,11 +45,16 @@ class InputParser():
 
     def __parse(self, argv) -> Dict:
         args_parsed : Dict = {}
-        options, arguments = getopt.getopt(
-            argv[1:],                      # Arguments
-            'hm:t:H:e:',                            # Short option definitions
-            ["help","accurate","maxtries=", "threads=", "hash=", "encoding="]) # Long option definitions
+        try:
+            options, arguments = getopt.getopt(
+                argv[1:],                      # Arguments
+                'hm:t:H:e:',                            # Short option definitions
+                ["help","accurate","maxtries=", "threads=", "hash=", "encoding="]) # Long option definitions
 
+        except getopt.GetoptError as e:
+            print(e)
+            sys.exit(-1)
+        
         for o, a in options:
             if o in ("-m", "--maxtries"):
                 try:  
