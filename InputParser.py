@@ -36,7 +36,7 @@ DESCRIPTION
 
 from typing import Dict
 import getopt
-import os, sys, json, multiprocessing
+import sys, json, multiprocessing
 
 class InputParser():
     def __init__(self, argv) -> None:
