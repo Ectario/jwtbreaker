@@ -36,7 +36,7 @@ DESCRIPTION
 
 from typing import Dict
 import getopt
-import os, sys, json
+import os, sys, json, multiprocessing
 
 class InputParser():
     def __init__(self, argv) -> None:
@@ -100,7 +100,7 @@ class InputParser():
                 if str(e) == "maxtries":
                     args["maxtries"] = -1
                 elif str(e) == "threads":
-                    args["threads"] = len(os.sched_getaffinity(0))
+                    args["threads"] = int(multiprocessing.cpu_count())
                 elif str(e) == "encoding":
                     args["encoding"] = 'latin-1'
                 elif str(e) == "hash":
