@@ -6,35 +6,36 @@ jwtbreaker - Bruteforce JWT token with a password list
 ![PowerShell Gallery](https://img.shields.io/powershellgallery/p/DNS.1.1.1.1)
 
 # Description
-jwtbreaker allows to bruteforce a token from a payload and a password list. By default, jwtbreaker uses all the available cores of the computer which allows parallel processing of passwords and maximizes the speed of calculation and tests.
+jwtbreaker allows you to bruteforce a token from a payload and a password list. By default, jwtbreaker uses all the available cores of the computer which allows parallel processing of passwords and maximizes the speed of calculation and tests.
 
 # Requirements
 
 - [Python 3](https://www.python.org/downloads/)
-- [Git](https://git-scm.com/downloads) (it is not necessary but it is the easiest way to get the project)
 - [PyJWT (python 3 module)](https://pypi.org/project/PyJWT/)
 
 # Installation
 
-## Get it
-Download it directly.
+## Download
+The files can either be downloaded directly (the download zip in the clone menu) or can be cloned if you have git available:
 
-Otherwise, you can clone the project with git: `git clone https://github.com/Ectario/jwtbreaker.git`
+ `git clone https://github.com/Ectario/jwtbreaker.git`
 
 ## Setup
 Go to the jwtbreaker directory: `cd jwtbreaker`.
 
-To authorize the execution of the code: `chmod +x ./main.py`
+To authorize the execution of the code under macOS/Linux: `chmod +x ./main.py`
+
+_note: for Windows systems you just have to make sure that python3 is in the path_
 
 # Usage
-### General usage : `./main.py [OPTIONS...] <token> <payload> <password_list_path>`
-
+### General usage (macOS/Linux): `./main.py [OPTIONS...] <token> <payload> <password_list_path>`
+_note: under Windows there are the same commands but without './'_
 
 
 - __Get help__
   `./main.py -h` or `./main.py --help`
 
-- __Set hashing algorithm for the token__  _(Default : HS256)_
+- `-H/--hash` - __Set hashing algorithm for the token__  _(Default : HS256)_
 
   `./main.py -H HS512 <token> <payload> <password_list_path>`
 
@@ -45,7 +46,7 @@ To authorize the execution of the code: `chmod +x ./main.py`
   _HS512 is an example._
 
 
-- __Set the maximum number of tries before the program stops__ _(Default : the whole list)_
+- `-m/--maxtries` - __Set the maximum number of tries before the program stops__ _(Default : the whole list)_
  
   `./main.py -m 10 <token> <payload> <password_list_path>`
  
@@ -54,7 +55,7 @@ To authorize the execution of the code: `chmod +x ./main.py`
   `./main.py --maxtries=10 <token> <payload> <password_list_path>`
  
 
-- __Set the thread number__ _(Default : cores number)_
+- `-t/--threads` - __Set the thread number__ _(Default : number of cores on machine)_
 
   `./main.py -t 4 <token> <payload> <password_list_path>`
  
@@ -63,7 +64,7 @@ To authorize the execution of the code: `chmod +x ./main.py`
   `./main.py --threads=4 <token> <payload> <password_list_path>`
  
 
-- __Set the encoding used to read the password list)__ _(Default : latin-1)_
+- `-e/--encoding` - __Set the encoding used to read the password list)__ _(Default : latin-1)_
 
   `./main.py -e utf-8 <token> <payload> <password_list_path>`
  
@@ -72,16 +73,16 @@ To authorize the execution of the code: `chmod +x ./main.py`
   `./main.py --encoding=utf-8 <token> <payload> <password_list_path>`
  
 
-- __If it is necessary to have a good precision on the percentage or the number of tests which were made__
+- `--accurate` - __If it is necessary to have a good precision on the percentage or the number of tests which were made__
  
     `./main.py --accurate <token> <payload> <password_list_path>`
     
     _The threads can occasionally overlap during incrementation which sometimes skews the data. This flag allows the use of mutexes so that the threads do not overlap (only) during incrementations._
     
-    _**Be careful!** Using this flag slows down calculations._
+    _**Be careful!** Using this flag slows down the program._
     
 
-**Of course it is possible to chain as many options as you want (it is enough that the options are before the mandatory part of the token, payload and password list)**
+Of course it is possible to chain as many options as you want (it is enough that the options are before the mandatory part of the token, payload and password list).
 
 # Example
 
