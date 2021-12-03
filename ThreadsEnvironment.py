@@ -24,17 +24,18 @@ class Environment():
         self.MUTEX = Lock() if accurate else None
 
         # Get the line number of the file
-        if maxtries == -1:
-            try:
-                with open(self.PATH, encoding=encoding_pwd_file) as f:
-                    file = f.readlines()
-                    self.MAXTRIES = len(file)
-            except UnicodeDecodeError:
-                print('[+] Wrong encoding for the password file \'%s\'. Try to use -e or --encoding with the right encoding (ex: utf-8, utf-16, ascii...).' % self.ENCODING_PWD_FILE)
-                sys.exit(-1)
-            except Exception as e:
-                print(e)
-                sys.exit(-1)
+        try:
+            with open(self.PATH, encoding=encoding_pwd_file) as f:
+                file = f.readlines()
+                size = len(file)
+                self.MAXTRIES = size if (size<maxtries or maxtries<0) else maxtries
+        except UnicodeDecodeError:
+            print('[+] Wrong encoding for the password file \'%s\'. Try to use -e or --encoding with the right encoding (ex: utf-8, utf-16, ascii...).' % self.ENCODING_PWD_FILE)
+            sys.exit(-1)
+        except Exception as e:
+            print(e)
+            sys.exit(-1)
+
 
      # Create for each thread -> his password list
     def thread_file_splitting(self) -> None:
