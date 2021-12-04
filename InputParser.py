@@ -29,6 +29,9 @@ DESCRIPTION
         -e, --encoding
                 Set the encoding in which to read the file with the list of passwords, by default it's 'latin-1'
 
+        --force
+                Allows to ignore the byte read errors coming from the passwordlist. This is the force-mode.
+                /!\ It is possible not to use all the words in the password list since some of them have been skipped due to a byte reading error. /!\\
         --accurate
                 If set then the percentage, the fail number and the attempt number are accurate. But the Bruteforce go slowly.
                 /!\ If you don't care about percentage then don't set it. /!\\
@@ -49,7 +52,7 @@ class InputParser():
             options, arguments = getopt.getopt(
                 argv[1:],                      # Arguments
                 'hm:t:H:e:',                            # Short option definitions
-                ["help","accurate","maxtries=", "threads=", "hash=", "encoding="]) # Long option definitions
+                ["help","accurate", "force","maxtries=", "threads=", "hash=", "encoding="]) # Long option definitions
 
         except getopt.GetoptError as e:
             print(e)
@@ -72,6 +75,8 @@ class InputParser():
                 args_parsed['encoding'] = str(a)    
             elif o in "--accurate":
                 args_parsed['accurate'] = True
+            elif o in "--force":
+                args_parsed['force'] = True    
             elif o in ("-h", "--help"):
                 print(USAGE)
                 sys.exit(-1)
@@ -94,7 +99,7 @@ class InputParser():
 
     # Set the default values
     def __fillArgs(self, args : Dict) -> Dict:
-        options = ["maxtries", "threads", "hash", "encoding", "payload", "token", "path_pwd_list", "accurate"]
+        options = ["maxtries", "threads", "hash", "encoding", "payload", "token", "path_pwd_list", "accurate", "force"]
         for e in options:
             if not str(e) in args:
                 if str(e) == "maxtries":
@@ -107,6 +112,8 @@ class InputParser():
                     args["hash"] = 'HS256'
                 elif str(e) == "accurate":
                     args["accurate"] = False
+                elif str(e) == "force":
+                    args["force"] = False
         self.__print_opt(args)
         return args
 

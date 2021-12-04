@@ -4,7 +4,7 @@ import sys, shutil, threading, time, time, jwt, os
 from threading import Lock
 
 class Environment():
-    def __init__(self, params, token, path_pwd_list, maxtries, hashing_algorithm, encoding_pwd_file, thread_number, accurate) -> None:
+    def __init__(self, params, token, path_pwd_list, maxtries, hashing_algorithm, encoding_pwd_file, thread_number, accurate, force) -> None:
         self.TOKEN = token
         self.PARAMS = params
         self.HASH = hashing_algorithm
@@ -22,10 +22,11 @@ class Environment():
         self.INIT_TIME = time.time()
         self.ACCURATE = accurate
         self.MUTEX = Lock() if accurate else None
+        self.FORCE = 'ignore' if force else None
 
         # Get the line number of the file
         try:
-            with open(self.PATH, encoding=encoding_pwd_file) as f:
+            with open(self.PATH, encoding=encoding_pwd_file, errors=self.FORCE) as f:
                 file = f.readlines()
                 size = len(file)
                 self.MAXTRIES = size if (size<maxtries or maxtries<0) else maxtries
@@ -44,7 +45,7 @@ class Environment():
         except:
             pass
         try:
-            with open(self.PATH, 'r',encoding=self.ENCODING_PWD_FILE) as f:
+            with open(self.PATH, 'r',encoding=self.ENCODING_PWD_FILE, errors=self.FORCE) as f:
                 current_number_thread = 0
                 data = ""
                 for i in range(self.MAXTRIES):
@@ -53,7 +54,7 @@ class Environment():
                     # Checking if it's the moment to split (example : if THREAD_NUMBER = 2 and TRIES = 10, we write/split to an other file at i=5 to i=10)
                     if (i-1 != 0 and (i-1) % int(self.MAXTRIES/self.THREAD_NUMBER) == 0) or i+1 == self.MAXTRIES:
                         new_path = f"{self.TMP_PATH}{str(current_number_thread)}.txt"
-                        with open(new_path, 'w') as f_tmp:
+                        with open(new_path, 'w', errors=self.FORCE) as f_tmp:
                             current_number_thread += 1
                             f_tmp.write(data)
                             f_tmp.close()
@@ -80,7 +81,7 @@ class BruteForceThread(threading.Thread):
         self.env = env
         self.path = path
     def run(self):  # path is the file path for the thread using this function. Brute Force the password for the token.
-        with open(self.path, 'r') as f:
+        with open(self.path, 'r', errors=self.env.FORCE) as f:
             for i in range(int(self.env.MAXTRIES/self.env.THREAD_NUMBER)):
                 if self.env.FOUND == False:
                     PSW = f.readline().strip()  # Getting password (1 line = 1 password)

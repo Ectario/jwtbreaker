@@ -19,7 +19,8 @@ if __name__ == '__main__': # Disallow this script as a module
                     args["hash"], 
                     args["encoding"] , 
                     args["threads"], 
-                    args['accurate'])
+                    args["accurate"],
+                    args["force"])
     
     def print_result():
         print(f'\n\n   [+] END OF PROCESS ({int(time.time()-env.INIT_TIME)} s)\n')
