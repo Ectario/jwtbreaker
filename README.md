@@ -72,6 +72,11 @@ _note: under Windows there are the same commands but without './'_
 
   `./main.py --encoding=utf-8 <token> <payload> <password_list_path>`
  
+- `--force` - __Allows to ignore the byte read errors coming from the passwordlist. This is the force-mode.__
+
+    `./main.py --force <token> <payload> <password_list_path>`
+
+    _It is possible not to use all the words in the password list since some of them have been skipped due to a byte reading error._
 
 - `--accurate` - __If it is necessary to have a good precision on the percentage or the number of tests which were made__
  
