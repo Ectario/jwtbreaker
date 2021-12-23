@@ -95,7 +95,7 @@ Of course it is possible to chain as many options as you want (it is enough that
         ~/jwtbreaker$ ./main.py -t 4 "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6InRydWUifQ.mpfL_UMUlKsmlGiQaHEeymiSaQmych9R6t0soV5qCaw" "{\"admin\":\"true\"}" "../../passwordlist/rockyou.txt"
         [+] Loading the application environnement...
         
-        ========== Configuration==========
+        ========== Configuration ==========
         [config] threads = 4
         [config] token = eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbiI6InRydWUifQ.mpfL_UMUlKsmlGiQaHEeymiSaQmych9R6t0soV5qCaw
         [config] payload = {'admin': 'true'}
