@@ -119,7 +119,7 @@ class InputParser():
 
     def __print_opt(self, args_parsed):
         print()
-        banner = "="*10 + " Configuration" + "="*10
+        banner = "="*10 + " Configuration " + "="*10
         print(banner)
         for i in args_parsed:
             if i == "maxtries" and args_parsed['maxtries']==-1:
